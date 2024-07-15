@@ -12,3 +12,5 @@ SELECT @txt , mem_name FROM member WHERE height > @height ;
 SET @count = 3;
 PREPARE mySQL FROM 'SELECT mem_name, height FROM member ORDER BY height LIMIT ?';
 EXECUTE mySQL USING @count;
+
+SELECT AVG(price) AS '평균 가격' FROM buy;
