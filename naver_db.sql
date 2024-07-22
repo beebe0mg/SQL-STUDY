@@ -32,3 +32,15 @@ INSERT INTO member VALUES('WMN', '여자친구', 6, '경기', '031', '33333333',
 INSERT INTO buy VALUES(NULL, 'BLK', '지갑', NULL, 30, 2);
 INSERT INTO buy VALUES(NULL, 'BLK', '맥북프로', '디지털', 1000, 1);
 -- INSERT INTO buy VALUES(NULL, 'APN', '아이폰', '디지털', 200, 1);
+
+DESCRIBE member;
+DROP TABLE IF EXISTS member;
+CREATE TABLE member
+( mem_id		CHAR(8) NOT NULL,
+  mem_name		VARCHAR(10) NOT NULL,
+  height 		TINYINT UNSIGNED NULL,
+  PRIMARY KEY (mem_id)
+);
+ALTER TABLE member -- 멤버 변경
+	ADD CONSTRAINT -- 제약 조건 추가
+    PRIMARY KEY (mem_id); -- mem_id 열에 기본 키 제약조건 설정
