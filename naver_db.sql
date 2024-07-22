@@ -44,3 +44,12 @@ CREATE TABLE member
 ALTER TABLE member -- 멤버 변경
 	ADD CONSTRAINT -- 제약 조건 추가
     PRIMARY KEY (mem_id); -- mem_id 열에 기본 키 제약조건 설정
+
+ALTER TABLE buy -- buy 수정
+	ADD CONSTRAINT -- 제약 조건 추가
+    FOREIGN KEY(mem_id) -- 외래 키 제약조건을 buy 테이블의 mem_id레 설정
+    REFERENCES member(mem_id); -- 참조할 기준 테이블은 member 테이블의 mem_id 열임
+
+-- INSERT INTO member VALUES('BLK', '블랙핑크', 163);
+-- INSERT INTO buy VALUES(NULL, 'BLK', '지갑');
+-- INSERT INTO buy VALUES(NULL, 'BLK', '맥북');
