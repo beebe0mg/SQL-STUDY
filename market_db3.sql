@@ -52,3 +52,5 @@ USE market_db;
 
 DROP TABLE IF EXISTS buy, member;
 SELECT * FROM v_height167;
+
+CHECK TABLE v_height167;
