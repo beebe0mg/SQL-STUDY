@@ -28,3 +28,6 @@ AS
 	SELECT mem_id, mem_name, addr FROM member;
     
 DESCRIBE v_viewtest2;
+DESCRIBE member;
+
+SHOW CREATE VIEW v_viewtest2;
