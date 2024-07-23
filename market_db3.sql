@@ -32,10 +32,20 @@ USE market_db;
 
 -- SHOW CREATE VIEW v_viewtest2;-- 
 
-UPDATE v_member SET addr = '부산' WHERE mem_id='BLK';
+-- UPDATE v_member SET addr = '부산' WHERE mem_id='BLK';
 
-CREATE VIEW v_height167
-AS
-	SELECT * FROM member WHERE height >= 167;
+-- CREATE VIEW v_height167
+-- AS
+-- 	SELECT * FROM member WHERE height >= 167;
 
-SELECT * FROM v_height167;
+-- SELECT * FROM v_height167;
+
+-- DELETE FROM v_height167 WHERE height < 167;
+
+-- ALTER VIEW v_height167
+-- AS
+-- 	SELECT * FROM member WHERE height >= 167
+-- 		WITH CHECK OPTION;
+--         
+-- INSERT INTO v_height167 VALUES('T0B', '텔레토비', 4, '영국', NULL, NULL, 140, '1995-01-01');
+-- SELECT * FROM v_height167;
