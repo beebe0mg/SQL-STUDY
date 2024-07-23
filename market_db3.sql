@@ -49,3 +49,6 @@ USE market_db;
 --         
 -- INSERT INTO v_height167 VALUES('T0B', '텔레토비', 4, '영국', NULL, NULL, 140, '1995-01-01');
 -- SELECT * FROM v_height167;
+
+DROP TABLE IF EXISTS buy, member;
+SELECT * FROM v_height167;
