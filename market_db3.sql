@@ -23,11 +23,19 @@ USE market_db;
 
 -- DROP VIEW v_viewtest1;
 
-CREATE OR REPLACE VIEW v_viewtest2
-AS
-	SELECT mem_id, mem_name, addr FROM member;
-    
-DESCRIBE v_viewtest2;
-DESCRIBE member;
+-- CREATE OR REPLACE VIEW v_viewtest2
+-- AS
+-- 	SELECT mem_id, mem_name, addr FROM member;
+--     
+-- DESCRIBE v_viewtest2;
+-- DESCRIBE member;
 
-SHOW CREATE VIEW v_viewtest2;
+-- SHOW CREATE VIEW v_viewtest2;-- 
+
+UPDATE v_member SET addr = '부산' WHERE mem_id='BLK';
+
+CREATE VIEW v_height167
+AS
+	SELECT * FROM member WHERE height >= 167;
+
+SELECT * FROM v_height167;
