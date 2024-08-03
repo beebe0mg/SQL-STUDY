@@ -69,3 +69,22 @@ CREATE UNIQUE INDEX idx_member_mem_name
 	ON member (mem_name);
     
 SHOW INDEX FROM member;
+
+ANALYZE TABLE member;
+SHOW INDEX FROM member;
+
+SELECT * FROM member;
+
+SELECT mem_id, mem_name, addr FROM member;
+
+SELECT mem_id, mem_name, addr
+	FROM member
+    WHERE mem_name = '에이핑크';
+    
+CREATE INDEX idx_member_mem_number
+	ON member (mem_number);
+ANALYZE TABLE member;
+
+SELECT mem_name, mem_number
+	FROM member
+    WHERE mem_number >= 7;
