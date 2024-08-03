@@ -44,3 +44,12 @@ ALTER TABLE member
 	ADD CONSTRAINT
     PRIMARY KEY (mem_id);
 SELECT * FROM member;
+
+ALTER TABLE member DROP PRIMARY KEY;
+ALTER TABLE member
+	ADD CONSTRAINT
+    PRIMARY KEY (mem_name);
+SELECT * FROM member;
+
+INSERT INTO member VALUES('GRL', '소녀시대', 8, '서울');
+SELECT * FROM member;
