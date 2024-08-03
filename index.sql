@@ -9,11 +9,18 @@
 --   debut_table	DATE
 -- );
 
-CREATE TABLE table1_new (
+-- CREATE TABLE table1_new (
+--     col1 INT PRIMARY KEY,
+--     col2 INT ,
+--     col3 INT
+-- );
+
+-- SHOW INDEX FROM table1_new;
+
+CREATE TABLE table2_new (
     col1 INT PRIMARY KEY,
-    col2 INT,
-    col3 INT
+    col2 INT UNIQUE,
+    col3 INT UNIQUE
 );
 
-
-SHOW INDEX FROM table1_new;
+SHOW INDEX FROM table2_new;
