@@ -130,7 +130,44 @@ SET GLOBAL log_bin_trust_function_creators = 1;
 -- SELECT calcYearFunc(2013) INTO @debut2013;
 -- SELECT @debut2007-@debut2013 AS '2007과 2013 차이';
 
-SELECT mem_id, mem_name, calcYearFunc(YEAR(debut_date)) AS '활동 횟수'
-	FROM member;
+-- SELECT mem_id, mem_name, calcYearFunc(YEAR(debut_date)) AS '활동 횟수'
+-- 	FROM member;
+--     
+-- DROP FUNCTION calcYearFunc;
+
+USE market_db;
+DROP PROCEDURE IF EXISTS cursor_proc;
+DELIMITER $$
+CREATE PROCEDURE cursor_proc()
+BEGIN
+	DECLARE memNumber INT;
+	DECLARE cnt INT DEFAULT 0;
+	DECLARE totNumber INT DEFAULT 0;
+	DECLARE endOfRow BOOLEAN DEFAULT FALSE;
+
+	DECLARE memberCursor CURSOR FOR
+		SELECT mem_number FROM member;
     
-DROP FUNCTION calcYearFunc;
+	DECLARE CONTINUE HANDLER
+		FOR NOT FOUND SET endOfRow = TRUE;
+    
+    OPEN memberCursor;
+
+	cursor_loop: LOOP
+		FETCH memberCursor INTO memNumber;
+    
+		IF endOfRow THEN
+			LEAVE cursor_loop;
+		END IF;
+    
+		SET cnt = cnt + 1;
+		SET totNumber = totNumber + memNumber;
+	END LOOP cursor_loop;
+
+	SELECT (totNumber/cnt) AS '회원의 평균 인원 수';
+    
+    CLOSE memberCursor;
+END $$
+DELIMITER ;
+
+CALL cursor_proc();
