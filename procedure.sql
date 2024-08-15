@@ -101,14 +101,31 @@
 
 SET GLOBAL log_bin_trust_function_creators = 1;
 
-USE market_db;
-DROP FUNCTION IF EXISTS sumFunc;
+-- USE market_db;
+-- DROP FUNCTION IF EXISTS sumFunc;
+-- DELIMITER $$
+-- CREATE FUNCTION sumFunc(number1 INT, number2 INT)
+-- 	RETURNS INT
+-- BEGIN
+-- 	RETURN number1 + number2;
+-- END $$
+-- DELIMITER ;
+
+-- SELECT sumFunc(100, 200) AS '합계';
+
+DROP FUNCTION IF EXISTS calcYearFunc;
 DELIMITER $$
-CREATE FUNCTION sumFunc(number1 INT, number2 INT)
+CREATE FUNCTION calcYearFunc(dYear INT)
 	RETURNS INT
 BEGIN
-	RETURN number1 + number2;
+	DECLARE runYear INT;	-- 활동 기간(연도)
+	SET runYear = YEAR(CURDATE()) - dYear;
+	RETURN runYear;
 END $$
 DELIMITER ;
 
-SELECT sumFunc(100, 200) AS '합계';
+SELECT calcYearFunc(2010) AS '활동 횟수';
+
+SELECT calcYearFunc(2007) INTO @debut2007;
+SELECT calcYearFunc(2013) INTO @debut2013;
+SELECT @debut2007-@debut2013 AS '2007과 2013 차이';
