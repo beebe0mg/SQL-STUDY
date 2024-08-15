@@ -32,16 +32,35 @@ USE market_db;
 
 -- CALL user_proc2(6, 165);
 
-DROP PROCEDURE IF EXISTS user_proc3;
+-- DROP PROCEDURE IF EXISTS user_proc3;
+-- DELIMITER $$
+-- CREATE PROCEDURE user_proc3(IN txtValue CHAR(10), OUT outValue INT)
+-- BEGIN
+-- 	INSERT INTO noTable VALUES(NULL, txtValue);
+--     SELECT MAX(id) INTO outValue FROM noTable;
+-- END $$
+-- DELIMITER ;
+
+-- CREATE TABLE IF NOT EXISTS noTable( id INT AUTO_INCREMENT PRIMARY KEY, txt CHAR(10));
+
+-- CALL user_proc3('테스트1', @myValue);
+-- SELECT CONCAT('입력된 ID 값 ==>', @myValue);
+
+DROP PROCEDURE IF EXISTS ifelse_proc;
 DELIMITER $$
-CREATE PROCEDURE user_proc3(IN txtValue CHAR(10), OUT outValue INT)
+CREATE PROCEDURE ifelse_proc(
+	IN memName VARCHAR(10)
+)
 BEGIN
-	INSERT INTO noTable VALUES(NULL, txtValue);
-    SELECT MAX(id) INTO outValue FROM noTable;
+	DECLARE debutYear INT;	-- 변수 선언
+    SELECT YEAR(debut_date) into debutYear FROM member
+		WHERE mem_name = memName;
+	IF (debutYear >= 2015) THEN
+		SELECT '신인 가수네요. 화이팅 하세요.' AS '메시지';
+	ELSE
+		SELECT '고참 가수네요. 그동안 수고하셨어요.' AS '메시지';
+	END IF;
 END $$
 DELIMITER ;
 
-CREATE TABLE IF NOT EXISTS noTable( id INT AUTO_INCREMENT PRIMARY KEY, txt CHAR(10));
-
-CALL user_proc3('테스트1', @myValue);
-SELECT CONCAT('입력된 ID 값 ==>', @myValue);
+CALL ifelse_proc('오마이걸');
