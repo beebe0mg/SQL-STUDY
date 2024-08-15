@@ -46,21 +46,40 @@ USE market_db;
 -- CALL user_proc3('테스트1', @myValue);
 -- SELECT CONCAT('입력된 ID 값 ==>', @myValue);
 
-DROP PROCEDURE IF EXISTS ifelse_proc;
+-- DROP PROCEDURE IF EXISTS ifelse_proc;
+-- DELIMITER $$
+-- CREATE PROCEDURE ifelse_proc(
+-- 	IN memName VARCHAR(10)
+-- )
+-- BEGIN
+-- 	DECLARE debutYear INT;	-- 변수 선언
+--     SELECT YEAR(debut_date) into debutYear FROM member
+-- 		WHERE mem_name = memName;
+-- 	IF (debutYear >= 2015) THEN
+-- 		SELECT '신인 가수네요. 화이팅 하세요.' AS '메시지';
+-- 	ELSE
+-- 		SELECT '고참 가수네요. 그동안 수고하셨어요.' AS '메시지';
+-- 	END IF;
+-- END $$
+-- DELIMITER ;
+
+-- CALL ifelse_proc('오마이걸');
+
+DROP PROCEDURE IF EXISTS while_proc;
 DELIMITER $$
-CREATE PROCEDURE ifelse_proc(
-	IN memName VARCHAR(10)
-)
+CREATE PROCEDURE while_proc()
 BEGIN
-	DECLARE debutYear INT;	-- 변수 선언
-    SELECT YEAR(debut_date) into debutYear FROM member
-		WHERE mem_name = memName;
-	IF (debutYear >= 2015) THEN
-		SELECT '신인 가수네요. 화이팅 하세요.' AS '메시지';
-	ELSE
-		SELECT '고참 가수네요. 그동안 수고하셨어요.' AS '메시지';
-	END IF;
+	DECLARE hap INT;	-- 합계
+    DECLARE num INT;	-- 1부터 100까지 증가
+    SET hap = 0; -- 합계 초기화
+    SET num = 1;
+
+	WHILE (num <= 100) DO 	-- 100까지 반복
+		SET hap = hap + num;
+		SET num = num + 1;
+	END WHILE;
+    SELECT hap AS '1~100 합계';
 END $$
 DELIMITER ;
 
-CALL ifelse_proc('오마이걸');
+CALL while_proc();
