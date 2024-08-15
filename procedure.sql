@@ -65,21 +65,36 @@ USE market_db;
 
 -- CALL ifelse_proc('오마이걸');
 
-DROP PROCEDURE IF EXISTS while_proc;
-DELIMITER $$
-CREATE PROCEDURE while_proc()
-BEGIN
-	DECLARE hap INT;	-- 합계
-    DECLARE num INT;	-- 1부터 100까지 증가
-    SET hap = 0; -- 합계 초기화
-    SET num = 1;
+-- DROP PROCEDURE IF EXISTS while_proc;
+-- DELIMITER $$
+-- CREATE PROCEDURE while_proc()
+-- BEGIN
+-- 	DECLARE hap INT;	-- 합계
+--     DECLARE num INT;	-- 1부터 100까지 증가
+--     SET hap = 0; -- 합계 초기화
+--     SET num = 1;
 
-	WHILE (num <= 100) DO 	-- 100까지 반복
-		SET hap = hap + num;
-		SET num = num + 1;
-	END WHILE;
-    SELECT hap AS '1~100 합계';
+-- 	WHILE (num <= 100) DO 	-- 100까지 반복
+-- 		SET hap = hap + num;
+-- 		SET num = num + 1;
+-- 	END WHILE;
+--     SELECT hap AS '1~100 합계';
+-- END $$
+-- DELIMITER ;
+
+-- CALL while_proc();
+
+DROP PROCEDURE IF EXISTS dynamic_proc;
+DELIMITER $$
+CREATE PROCEDURE dynamic_proc(
+	IN tableName VARCHAR(20)
+)
+BEGIN
+	SET @sqlQuery = CONCAT('SELECT * FROM ', tableName);
+    PREPARE myQuery FROM @sqlQuery;
+    EXECUTE myQuery;
+    DEALLOCATE PREPARE myQuery;
 END $$
 DELIMITER ;
 
-CALL while_proc();
+CALL dynamic_proc('member');
