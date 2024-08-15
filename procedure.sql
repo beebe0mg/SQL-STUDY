@@ -1,4 +1,4 @@
-USE market_db;
+-- USE market_db;
 -- DROP PROCEDURE IF EXISTS user_proc;
 -- DELIMITER $$
 -- CREATE PROCEDURE user_proc()
@@ -84,17 +84,31 @@ USE market_db;
 
 -- CALL while_proc();
 
-DROP PROCEDURE IF EXISTS dynamic_proc;
+-- DROP PROCEDURE IF EXISTS dynamic_proc;
+-- DELIMITER $$
+-- CREATE PROCEDURE dynamic_proc(
+-- 	IN tableName VARCHAR(20)
+-- )
+-- BEGIN
+-- 	SET @sqlQuery = CONCAT('SELECT * FROM ', tableName);
+--     PREPARE myQuery FROM @sqlQuery;
+--     EXECUTE myQuery;
+--     DEALLOCATE PREPARE myQuery;
+-- END $$
+-- DELIMITER ;
+
+-- CALL dynamic_proc('member');
+
+SET GLOBAL log_bin_trust_function_creators = 1;
+
+USE market_db;
+DROP FUNCTION IF EXISTS sumFunc;
 DELIMITER $$
-CREATE PROCEDURE dynamic_proc(
-	IN tableName VARCHAR(20)
-)
+CREATE FUNCTION sumFunc(number1 INT, number2 INT)
+	RETURNS INT
 BEGIN
-	SET @sqlQuery = CONCAT('SELECT * FROM ', tableName);
-    PREPARE myQuery FROM @sqlQuery;
-    EXECUTE myQuery;
-    DEALLOCATE PREPARE myQuery;
+	RETURN number1 + number2;
 END $$
 DELIMITER ;
 
-CALL dynamic_proc('member');
+SELECT sumFunc(100, 200) AS '합계';
