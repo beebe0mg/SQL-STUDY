@@ -113,19 +113,24 @@ SET GLOBAL log_bin_trust_function_creators = 1;
 
 -- SELECT sumFunc(100, 200) AS '합계';
 
-DROP FUNCTION IF EXISTS calcYearFunc;
-DELIMITER $$
-CREATE FUNCTION calcYearFunc(dYear INT)
-	RETURNS INT
-BEGIN
-	DECLARE runYear INT;	-- 활동 기간(연도)
-	SET runYear = YEAR(CURDATE()) - dYear;
-	RETURN runYear;
-END $$
-DELIMITER ;
+-- DROP FUNCTION IF EXISTS calcYearFunc;
+-- DELIMITER $$
+-- CREATE FUNCTION calcYearFunc(dYear INT)
+-- 	RETURNS INT
+-- BEGIN
+-- 	DECLARE runYear INT;	-- 활동 기간(연도)
+-- 	SET runYear = YEAR(CURDATE()) - dYear;
+-- 	RETURN runYear;
+-- END $$
+-- DELIMITER ;
 
-SELECT calcYearFunc(2010) AS '활동 횟수';
+-- SELECT calcYearFunc(2010) AS '활동 횟수';
 
-SELECT calcYearFunc(2007) INTO @debut2007;
-SELECT calcYearFunc(2013) INTO @debut2013;
-SELECT @debut2007-@debut2013 AS '2007과 2013 차이';
+-- SELECT calcYearFunc(2007) INTO @debut2007;
+-- SELECT calcYearFunc(2013) INTO @debut2013;
+-- SELECT @debut2007-@debut2013 AS '2007과 2013 차이';
+
+SELECT mem_id, mem_name, calcYearFunc(YEAR(debut_date)) AS '활동 횟수'
+	FROM member;
+    
+DROP FUNCTION calcYearFunc;
