@@ -49,3 +49,14 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP TRIGGER IF EXISTS singer_deleteTrg;
+DELIMITER $$
+CREATE TRIGGER singer_deleteTrg -- 트리거 이름
+	AFTER DELETE	-- 삭제 후에 작동하도록 지정
+    ON singer	-- 트리거에 부착할 테이블
+	FOR EACH ROW
+BEGIN
+	INSERT INTO backup_singer VALUES ( OLD.mem_id, OLD.mem_name, OLD.mem_number, OLD.addr, '삭제', CURDATE(), CURRENT_USER() );
+END $$
+DELIMITER ;
+
