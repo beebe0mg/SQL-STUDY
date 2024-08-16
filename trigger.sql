@@ -64,4 +64,3 @@ UPDATE singer SET addr = '영국' WHERE mem_id = 'BLK';
 DELETE FROM singer WHERE mem_number >= 7;
 
 SELECT * FROM backup_singer;
-
